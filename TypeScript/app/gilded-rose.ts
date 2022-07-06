@@ -42,20 +42,15 @@ export class GildedRose {
         } else if (this.items[i].sellIn <=5){
           this.items[i].quality += 3
         }
-        if (this.items[i].quality >=50) {
-          this.items[i].quality = 50
-          continue;
-        }
       } else {
         var mul_fac_conj = 1
         var mul_fac_sellIn = 1
         if (this.items[i].name == 'Conjured') mul_fac_conj = 2
         if (this.items[i].sellIn == 0) mul_fac_sellIn = 2
         this.items[i].quality -= mul_fac_conj*mul_fac_sellIn*1
-
-        if (this.items[i].quality < 0) this.items[i].quality = 0
-        if (this.items[i].quality > 50) this.items[i].quality = 50
       }
+      if (this.items[i].quality < 0) this.items[i].quality = 0
+      if (this.items[i].quality >= 50) this.items[i].quality = 50
 
     //   if (this.items[i].name != 'Aged Brie' && this.items[i].name != 'Backstage passes to a TAFKAL80ETC concert') {
     //     if (this.items[i].quality > 0) {

@@ -43,10 +43,15 @@ describe('Quality of Aged Brie', () => {
 });
 
 describe('Quality of item in given range', () => {
-  it('should never never be negative', () => {
+  it('should never be negative', () => {
     const gildedRose = new GildedRose([new Item('',1,0)]);
     const items = gildedRose.updateQuality();
     expect(items[0].quality).toBe(0)
+  })
+  it('should not be above 50', () => {
+    const gildedRose = new GildedRose([new Item('',1,51)]);
+    const items = gildedRose.updateQuality();
+    expect(items[0].quality).toBe(50)
   })
 })
 
@@ -65,6 +70,11 @@ describe('Backstage passes', () => {
     const gildedRose = new GildedRose([new Item('Backstage passes to a TAFKAL80ETC concert',1,49)]);
     const items = gildedRose.updateQuality();
     expect(items[0].quality).toBe(50)
+  })
+  it('should increase by three when SellIn <=5 days', () => {
+    const gildedRose = new GildedRose([new Item('Backstage passes to a TAFKAL80ETC concert',5,1)]);
+    const items = gildedRose.updateQuality();
+    expect(items[0].quality).toBe(4)
   })
 })
 
@@ -85,7 +95,7 @@ describe('Conjured items', () => {
     const items = gildedRose.updateQuality();
     expect(items[0].quality).toBe(50)
   })
-  it('degrade four times as fast when past sell by date compared to normal items', () => {
+  it('degrades four times as fast when past sell by date compared to normal items', () => {
     const gildedRose = new GildedRose([new Item('Conjured',0,40)]);
     const items = gildedRose.updateQuality();
     expect(items[0].quality).toBe(36)
